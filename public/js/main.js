@@ -1,20 +1,12 @@
 //Creación del módulo
-var RFM=angular.module('RFM', ['ngRoute'])
+var glucontrole=angular.module('glucontrole', ['ngRoute'])
 
 //Configuración de las rutas
 .config(function($routeProvider){
   $routeProvider
-  .when('/recipes', {
-    templateUrl: 'partials/recipes.html',
-    controller: 'RecipesController'
-  })
-  .when('/products',{
-    templateUrl: 'partials/products.html',
-    controller: 'ProductsController'
-  })
-  .when('/offers',{
-    templateUrl: 'partials/offers.html',
-    controller: 'OffersController'
+  .when('/dashboard',{
+    templateUrl: 'partials/dashboard.html',
+    controller: 'DashboardController'
   })
   .when('/login',{
     templateUrl: 'partials/login.html',

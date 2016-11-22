@@ -1,5 +1,5 @@
 //Controlador de login
-RFM.controller('LoginController', ['$scope', '$http', '$location',
+glucontrole.controller('LoginController', ['$scope', '$http', '$location',
 	function($scope, $http, $location){ 
 	//Funcion de login
 	$scope.login = function(){
@@ -12,7 +12,7 @@ RFM.controller('LoginController', ['$scope', '$http', '$location',
 		$http.post('/users/login', loginData)
 			//Si el login es correcto se muestran los productos del usuario
 			.success(function(){
-				$location.path('/products');
+				$location.path('/dashboard');
 			})
 			//En caso contrario se muestra un mensaje de error
 			.error(function(){

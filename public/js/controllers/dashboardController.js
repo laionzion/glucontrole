@@ -1,5 +1,5 @@
 //Controlador de productos
-RFM.controller('ProductsController',['$scope', '$http', function($scope, $http){
+glucontrole.controller('DashboardController',['$scope', '$http', function($scope, $http){
 
   $scope.productsList = [];
   $scope.offersList = [];
@@ -9,7 +9,7 @@ RFM.controller('ProductsController',['$scope', '$http', function($scope, $http){
     $scope.offersList=data;
   });
 
-  //Obtenemos el listado de productos
+  //Obtenemos el listado de usuarios
   $http.get('/products').success(function(data){
     //Para cada producto
     data.forEach(function(currentprod){    
