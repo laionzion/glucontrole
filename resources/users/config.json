@@ -1,0 +1,69 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"firstName": {
+			"name": "firstName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "firstName",
+			"order": 0
+		},
+		"secondName": {
+			"name": "secondName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "secondName",
+			"order": 1
+		},
+		"birthDate": {
+			"name": "birthDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "birthDate",
+			"order": 2
+		},
+		"weight": {
+			"name": "weight",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "weight",
+			"order": 3
+		},
+		"height": {
+			"name": "height",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "height",
+			"order": 4
+		},
+		"glucoseLevels": {
+			"name": "glucoseLevels",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "glucoseLevels",
+			"order": 5
+		},
+		"meals": {
+			"name": "meals",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "meals",
+			"order": 6
+		},
+		"exercise": {
+			"name": "exercise",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "exercise",
+			"order": 7
+		}
+	}
+}

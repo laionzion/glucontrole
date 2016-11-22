@@ -1,0 +1,41 @@
+<div ng-include="'partials/navbar.html'"></div>
+<div>
+  <ul class="list-group">
+    <li class="list-group-item recipeList" ng-repeat="product in productsList | orderBy:'+name'">
+       <div class="container container-fluid">
+          <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+                <img ng-src="images/foods/{{product.foodId}}.png" class="img-responsive centerPic" alt="" height="auto" width="120"> </img>
+                <img ng-show="product.cClery" ng-src="images/icons/celery.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cEgg" ng-src="images/icons/eggs.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cFish" ng-src="images/icons/fish.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cGluten" ng-src="images/icons/gluten.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cMilk" ng-src="images/icons/milk.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cMustard" ng-src="images/icons/mustard.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cNut" ng-src="images/icons/nut.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cPeanuts" ng-src="images/icons/peanuts.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cSesame" ng-src="images/icons/sesame.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cShellFish" ng-src="images/icons/shellfish.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+                <img ng-show="product.cSoy" ng-src="images/icons/soy.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-7 .nPadL">
+              <h4>{{product.name}}</h4> <p class="text-primary">{{product.antennaLoc}}</p>
+              <h4><kbd>{{product.quantityText}}</kbd></h4>
+              <h4 ng-hide="product.dateAlert || product.fresh"><kbd>{{product.dateOfExpiry}}</kbd></h4>
+              <h4 ng-show="product.dateAlert && !product.fresh"><kbd class="caduca">{{product.dateOfExpiry}}</kbd></h4>
+              <h4 ng-show="product.fresh"><kbd class="envasado">{{product.dateOfExpiry}}</kbd></h4>
+              <h4 ng-show="product.offerUrl"><kbd class="offer"><a ng-href="{{product.offerUrl}}" target="_blank">Oferta</a></kbd></h4>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-5 col-xs-12">
+                <h4>Info. nutricional (100g):</h4>
+                <ul class="list-group">
+                  <li class="list-group-item ingredient ingCol" ng-repeat="nutri in product.nutrInfo">
+                      <kbd>{{nutri}}</kbd>
+                    </li>
+                </ul>
+            </div>
+          </div>
+      </div> 
+    </li>
+  </ul>
+</div>

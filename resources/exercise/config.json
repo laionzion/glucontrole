@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"startTime": {
+			"name": "startTime",
+			"type": "date",
+			"typeLabel": "date",
+			"required": true,
+			"id": "startTime",
+			"order": 0
+		},
+		"endTime": {
+			"name": "endTime",
+			"type": "date",
+			"typeLabel": "date",
+			"required": true,
+			"id": "endTime",
+			"order": 1
+		},
+		"calories": {
+			"name": "calories",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "calories",
+			"order": 2
+		}
+	}
+}
