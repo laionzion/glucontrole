@@ -2,15 +2,15 @@
 glucontrole.controller('DashboardController',['$scope', '$http', function($scope, $http){
 
   $scope.productsList = [];
-  $scope.offersList = [];
+  $scope.usersList = [];
 
-  //Obtenemos el listado de ofertas
-  $http.get('/offers').success(function(data){
-    $scope.offersList=data;
+  //Obtenemos el listado de usuarios
+  $http.get('/users').success(function(data){
+    $scope.usersList=data;
   });
 
   //Obtenemos el listado de usuarios
-  $http.get('/products').success(function(data){
+  /*$http.get('/products').success(function(data){
     //Para cada producto
     data.forEach(function(currentprod){    
       //Obtenemos las ofertas del producto actual
@@ -27,5 +27,5 @@ glucontrole.controller('DashboardController',['$scope', '$http', function($scope
       }
     })
     $scope.productsList=data;
-  });
+  });*/
 }]);

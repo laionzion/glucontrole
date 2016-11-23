@@ -1,9 +1,17 @@
 <div ng-include="'partials/navbar.html'"></div>
 <div>
   <ul class="list-group">
-    <li class="list-group-item recipeList" ng-repeat="product in productsList | orderBy:'+name'">
-       <div class="container container-fluid">
-          <div class="row">
+    <li class="list-group-item userList" ng-repeat="user in usersList">
+      <div class="container container-fluid">
+        <h4>{{user.firstName}} {{user.secondName}}</h4>
+          <ul class="list-group">
+            <li class="list-group-item ingredient ingCol" ng-repeat="medida in user.glucoseLevels | orderBy:'-date'">
+              <kbd>Fecha: {{medida.date}}</kbd>
+              <kbd>Tipo: {{medida.mType}}</kbd>
+              <kbd>Medida: {{medida.gLevel}}</kbd>
+            </li>
+          </ul>
+          <!--<div class="row">
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
                 <img ng-src="images/foods/{{product.foodId}}.png" class="img-responsive centerPic" alt="" height="auto" width="120"> </img>
                 <img ng-show="product.cClery" ng-src="images/icons/celery.png" class="img-responsive allergyIcon" alt="" height="auto" width="30"> </img>
@@ -34,8 +42,8 @@
                     </li>
                 </ul>
             </div>
-          </div>
-      </div> 
+          </div>-->
+      </div>
     </li>
   </ul>
 </div>
