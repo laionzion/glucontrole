@@ -8,6 +8,10 @@ var glucontrole=angular.module('glucontrole', ['ngRoute'])
     templateUrl: 'partials/dashboard.html',
     controller: 'DashboardController'
   })
+  .when('/meals',{
+    templateUrl: 'partials/meals.html',
+    controller: 'MealsController'
+  })
   .when('/login',{
     templateUrl: 'partials/login.html',
     controller: 'LoginController'

@@ -9,13 +9,14 @@ body,html{
 	}
 
 	.navbar{
-	font-family: 'Indie Flower', sans-serif;
-	font-weight: bold;
+	font-family: 'Josefin Sans Std Light', arial, serif;
+	font-weight: light;
 	font-size: 24px;
 	}
 	.navbar-brand{
-	font-size: 28px;
-	padding-left: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	padding-left: 0px;
 	}
 
 	/*Remove rounded coners*/

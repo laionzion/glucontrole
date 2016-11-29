@@ -1,0 +1,56 @@
+<div ng-include="'partials/navbar.html'"></div>
+<div>
+  <div class="container filterForm">
+    <form class="form-horizontal regForm" role="form">
+      <div class="form-group has-feedback">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 nPadL">
+          <input type="text" class="form-control" id="inputSuccess" ng-model="filter.search">
+          <span class="glyphicon glyphicon-search form-control-feedback"></span>
+        </div>
+         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 nPadL">
+          <select class="form-control" ng-model="filter.type">
+            <option></option>
+            <option>Bebidas</option>
+            <option>Cereales y derivados</option>
+            <option>Dulces</option>
+            <option>Fruta grasa y seca</option>
+            <option>Frutas</option>
+            <option>Legumbres</option>
+            <option>Lácteos</option>
+            <option>Otros</option>
+            <option>Tubérculos</option>
+            <option>Verduras</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item foodList" ng-repeat="food in foodList | filter:filter.type | filter:filter.search | orderBy:'+name' ">
+      <div class="row" ng-click="showDetails = ! showDetails">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
+          <h3 class="recName">{{food.name}}</h3>
+        </div>
+      </div>
+      <section class="nPadL" ng-controller="PanelController" ng-show="showDetails">
+        <div class="container container-fluid">
+            <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+              <h4 class="racion numberInput">Cantidad: <input type="number" class="form-control" ng-model="multFactor" ng-init="multFactor=1" min="1"> {{food.serving}}</h4>
+            </div>
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ingCol">
+                <ul class="list-group">
+                  <kbd class="availIngredient">Hidratos de carbono: {{food.gCarbs * multFactor}} g</kbd>
+                  <kbd class="availIngredient">Índice glucémico: {{food.gIndex}}</kbd>
+                  <kbd class="availIngredient">Carga glucémica: {{(food.gIndex * food.gCarbs * multFactor) / 100}}</kbd>
+                </ul>
+              </div>
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ingCol">
+                <button ng-click="count = count + 1">Añadir</button>
+              </div>
+            </div>
+          </div>
+      </section>
+    </li>
+  </ul>
+</div>

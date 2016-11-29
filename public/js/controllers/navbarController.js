@@ -1,5 +1,5 @@
 //Controlador de logout
-RFM.controller('NavBarController', ['$scope', '$http', '$location',
+glucontrole.controller('NavBarController', ['$scope', '$http', '$location',
 	function($scope, $http, $location){ 
 	//Funcion de logout
 	$scope.logout = function(){

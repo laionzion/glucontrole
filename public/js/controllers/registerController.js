@@ -1,5 +1,5 @@
 //Controlador de menú de registro de usuario
-RFM.controller('RegisterController', ['$scope', '$http', '$location',
+glucontrole.controller('RegisterController', ['$scope', '$http', '$location',
 	function($scope, $http, $location){ 
 	//Función para limpiar los checks de alergias
 	$scope.limpiar=function(){
