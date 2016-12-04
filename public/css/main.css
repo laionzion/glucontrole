@@ -75,7 +75,11 @@
 }
 
 .btn{
-	margin-top: 5px;
+	margin-top: 0px;
+}
+
+.addExcercise{
+	margin-top: 24px;
 }
 
 .nPadL{
@@ -106,10 +110,14 @@
 	background-color: gold;
 	font-family: 'Play', sans-serif;
 }
-
 .regForm{
 	font-family: 'Play', sans-serif;
-}	
+}
+.addForm{
+	padding-left: 15px;
+	margin-bottom: 15px;
+	font-family: 'Play', sans-serif;
+}
 .availIngredient{
 	background-color: #075F07;
 }

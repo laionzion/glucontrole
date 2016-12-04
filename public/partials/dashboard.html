@@ -1,16 +1,26 @@
 <div ng-include="'partials/navbar.html'"></div>
 <div>
-  <ul class="list-group">
-    <li class="list-group-item userList" ng-repeat="user in usersList">
+  <!--<ul class="list-group">
+    <li class="list-group-item userList" ng-repeat="user in usersList">-->
       <div class="container container-fluid">
         <h4>{{user.firstName}} {{user.secondName}}</h4>
-          <ul class="list-group">
-            <li class="list-group-item ingredient ingCol" ng-repeat="medida in user.glucoseLevels | orderBy:'-date'">
-              <kbd>Fecha: {{medida.date}}</kbd>
-              <kbd>Tipo: {{medida.mType}}</kbd>
-              <kbd>Medida: {{medida.gLevel}}</kbd>
-            </li>
-          </ul>
+        <ul class="list-group">
+          <li class="list-group-item ingredient ingCol" ng-repeat="medida in user.glucoseLevels | orderBy:'-date'">
+            <kbd>Fecha: {{medida.date | date:'dd/MM/yyyy HH:mm:ss'}}</kbd>
+            <kbd>Tipo: {{medida.mType}}</kbd>
+            <kbd>Medida: {{medida.gLevel}}</kbd>
+          </li>
+        </ul>
+      </div>
+      <div class="container container-fluid">
+        <ul class="list-group">
+          <li class="list-group-item ingredient ingCol">
+            <kbd>Máximo: {{user.glucoseValues[0]}}</kbd>
+            <kbd>Mínimo: {{user.glucoseValues[1]}}</kbd>
+            <kbd>Media: {{user.glucoseValues[2]}}</kbd>
+          </li>
+        </ul>
+      </div>
           <!--<div class="row">
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
                 <img ng-src="images/foods/{{product.foodId}}.png" class="img-responsive centerPic" alt="" height="auto" width="120"> </img>
@@ -43,7 +53,6 @@
                 </ul>
             </div>
           </div>-->
-      </div>
-    </li>
-  </ul>
+    <!--</li>
+  </ul>-->
 </div>

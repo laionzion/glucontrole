@@ -1,0 +1,47 @@
+<div ng-include="'partials/navbar.html'"></div>
+<div>
+  <div class="container container-fluid">
+    <h4>Entrenamientos</h4>
+    <div class="container filterForm">
+      <div class="row" ng-click="showForm = ! showForm">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
+          <button class="btn btn-success addForm">Nuevo entrenamiento</button>
+        </div>
+      </div>
+      <section class="nPadL" ng-show="showForm">
+        <form class="form-horizontal addForm" role="form" ng-submit="addExerciseData()">
+          <div class="form-group has-feedback">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 nPadL">
+              <h5>Fecha: <input type="text" class="form-control" id="inputSuccesss" ng-model="fecha"></h5>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 nPadL">
+              <h5>Hora inicio: <input type="text" class="form-control" id="inputSuccesss" ng-model="horaInicio"></h5>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 nPadL">
+              <h5>Hora fin: <input type="text" class="form-control" id="inputSuccesss" ng-model="horaFin"></h5>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 nPadL">
+              <h5>Calorías: <input type="text" class="form-control" id="inputSuccesss" ng-model="calorias"></h5>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 nPadL">
+              <button type="submit" class="btn btn-success addExcercise" ng-click="showForm = ! showForm"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item ingredient ingCol">
+        <kbd>Total: {{user.totalCalories}}</kbd>
+      </li>
+    </ul>
+    <ul class="list-group">
+      <li class="list-group-item ingredient ingCol col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL" ng-repeat="ejercicio in user.exercise | orderBy:'-startTime'">
+        <kbd>Inicio: {{ejercicio.startTime | date:'dd/MM/yyyy HH:mm:ss'}}</kbd>
+        <kbd>Fin: {{ejercicio.endTime | date:'dd/MM/yyyy HH:mm:ss'}}</kbd>
+        <kbd>Calorías consumidas: {{ejercicio.calories}}</kbd>
+        <button type="submit" class="btn btn-danger btn-sm" ng-click="deleteExerciseData(ejercicio)"><span class="glyphicon glyphicon-remove"></span></button>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -8,6 +8,14 @@ var glucontrole=angular.module('glucontrole', ['ngRoute'])
     templateUrl: 'partials/dashboard.html',
     controller: 'DashboardController'
   })
+  .when('/glucose',{
+    templateUrl: 'partials/glucose.html',
+    controller: 'GlucoseController'
+  })
+  .when('/exercise',{
+    templateUrl: 'partials/exercise.html',
+    controller: 'ExerciseController'
+  })
   .when('/meals',{
     templateUrl: 'partials/meals.html',
     controller: 'MealsController'

@@ -1,11 +1,14 @@
 //Controlador de productos
 glucontrole.controller('DashboardController',['$scope', '$http', function($scope, $http){
 
-  $scope.productsList = [];
-  $scope.usersList = [];
+  $scope.user = [];
+
+  $http.get('/users/me').success(function(data){
+    $scope.user=data;
+  });
 
   //Obtenemos el listado de usuarios
-  $http.get('/users').success(function(data){
+  /*$http.get('/users').success(function(data){
     $scope.usersList=data;
   });
 
