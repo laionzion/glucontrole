@@ -64,6 +64,14 @@
 			"required": false,
 			"id": "exercise",
 			"order": 7
+		},
+		"ranking": {
+			"name": "ranking",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "ranking",
+			"order": 8
 		}
 	}
 }

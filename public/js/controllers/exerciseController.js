@@ -88,7 +88,14 @@ glucontrole.controller('ExerciseController',['$scope', '$http', '$location', fun
   //Función para eliminar un entrenamiento
   $scope.deleteExerciseData = function(ejercicio){
     //Se busca el índice del entrenamiento a eliminar y se elimina
-    var index = $scope.user.exercise.indexOf(ejercicio);
+    var index = -1;
+
+    for (var i = 0; i < $scope.user.exercise.length; i++) {
+      if(angular.equals($scope.user.exercise[i], ejercicio)) {
+            index = i;
+        }
+    }
+
     if (index > -1) {
       $scope.user.exercise.splice(index, 1);
     }
@@ -110,4 +117,20 @@ glucontrole.controller('ExerciseController',['$scope', '$http', '$location', fun
         alert(err.message || 'No se ha podido eliminar el entrenamiento'); 
     });
   };
+
+  //Funcion que recibe el histórico de ejercicio y devuelve la suma de las calorías consumidas
+  $scope.getTotal = function(cal){
+    var values = [];
+    cal.forEach(function(value){
+      values.push(value.calories);
+    });
+
+    //Se calcula la suma de las calorías consumidas
+    var sum = values.reduce(function(a, b) { return a + b; });
+
+    //Se devuelve la suma
+    return sum;
+  }
+
+
 }]);

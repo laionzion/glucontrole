@@ -1,10 +1,9 @@
-<form class="form-inline" role="form" ng-submit="login()">
-  <div class="form-group regForm">
-    <label for="login">Usuario:</label>
-    <input type="text" class="form-control" ng-model="username">
-    <label for="password">Contraseña:</label>
-    <input type="password" class="form-control" ng-model="password">
-    <button type="submit" class="btn btn-success">Acceder</button>
-    <a href="#/register" class="btn btn-info" role="button">Registro</a>
-  </div>
-</form>
+<div class="container">
+	<form class="form-signin" role="form" ng-submit="login()">
+		<h2 class="form-signin-heading text-center">Glucontrole</h2>
+		<input type="text" ng-model="username" class="form-control" placeholder="Usuario" required autofocus>
+		<input type="password" ng-model="password" class="form-control" placeholder="Contraseña" required>
+		<button type="submit" class="btn btn-lg btn-primary btn-block btn-success">Acceder</button>
+		<a href="#/register" class="btn btn-lg btn-primary btn-block btn-info" role="button">Registro</a>
+	</form>
+</div>

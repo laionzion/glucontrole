@@ -19,19 +19,11 @@
 		},
 		"serving": {
 			"name": "serving",
-			"type": "string",
-			"typeLabel": "string",
+			"type": "array",
+			"typeLabel": "array",
 			"required": false,
 			"id": "serving",
 			"order": 2
-		},
-		"gCarbs": {
-			"name": "gCarbs",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "gCarbs",
-			"order": 3
 		},
 		"gIndex": {
 			"name": "gIndex",
@@ -39,15 +31,7 @@
 			"typeLabel": "number",
 			"required": false,
 			"id": "gIndex",
-			"order": 4
-		},
-		"gLoad": {
-			"name": "gLoad",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "gLoad",
-			"order": 5
+			"order": 3
 		}
 	}
 }

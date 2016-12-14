@@ -1,0 +1,13 @@
+{
+	"type": "Collection",
+	"properties": {
+		"rankings": {
+			"name": "rankings",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "rankings",
+			"order": 0
+		}
+	}
+}

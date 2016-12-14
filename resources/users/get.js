@@ -3,14 +3,20 @@ cancelUnless(me, "No ha iniciado sesión", 401);
 
 //Solo se devuelve la información del usuario actual
 if (me.username != this.username){
-    cancel();
+  cancel();
 }
 //Propiedades añadidas
 else{
-    //Valores máximo, mínimo y media
-    this.glucoseValues=getGlucoseValues(this.glucoseLevels);
-    //Suma de calorías consumidas
-    this.totalCalories=getTotalCalories(this.exercise);
+  //Valores máximo, mínimo y media
+  this.glucoseValues=getGlucoseValues(this.glucoseLevels);
+  //Entrenamientos agrupados por fecha
+  this.groupedExercise=groupExerciseByDate(this.exercise);
+  //Entrenamientos ordenados por fecha inversa
+  this.groupedExerciseReverse=reverseOrder(this.groupedExercise);
+  //Alimentación agrupada por fecha
+  this.groupedMeals=groupMealsByDate(this.meals);
+  //Alimentación ordenada por fecha inversa
+  this.groupedMealsReverse=reverseOrder(this.groupedMeals);
 }
 
 //Funciones
@@ -30,16 +36,41 @@ function getGlucoseValues(gLevels){
   return [Math.max.apply(null, values), Math.min.apply(null, values), avg.toFixed(2)];
 }
 
-//Funcion que recibe el histórico de ejercicio y devuelve la suma de las calorías consumidas
-function getTotalCalories(cal){
-  var values = [];
-  cal.forEach(function(value){
-    values.push(value.calories);
+//Función que agrupa los entrenamientos por día
+function groupExerciseByDate(exerciseData) {
+  var groups = {};
+
+  for (var i = 0; i < exerciseData.length; i++){
+    var date = new Date(exerciseData[i].startTime);
+    var fecha = new Date(date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear());
+    groups[fecha.getTime()] || (groups[fecha.getTime()] = []);
+    groups[fecha.getTime()].push(exerciseData[i]);
+  }
+  return groups;
+};
+
+//Función que agrupa los entrenamientos por día
+function groupMealsByDate(mealData) {
+  var groups = {};
+
+  for (var i = 0; i < mealData.length; i++){
+    var date = new Date(mealData[i].date);
+    var fecha = new Date(date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear());
+    groups[fecha.getTime()] || (groups[fecha.getTime()] = []);
+    groups[fecha.getTime()].push(mealData[i]);
+  }
+  return groups;
+};
+
+//Función que invierte el orden de las fechas
+function reverseOrder(exerciseData) {
+  var groups = {};
+  var sorted_keys = Object.keys(exerciseData).sort();
+  var reversed_keys = sorted_keys.reverse();
+
+  reversed_keys.forEach(function(value){
+    groups[value] = exerciseData[value];
   });
 
-  //Se calcula la suma de las calorías consumidas
-  var sum = values.reduce(function(a, b) { return a + b; });
-
-  //Se devuelve la suma
-  return sum;
-}
+  return groups;
+};

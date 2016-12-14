@@ -20,6 +20,10 @@ var glucontrole=angular.module('glucontrole', ['ngRoute'])
     templateUrl: 'partials/meals.html',
     controller: 'MealsController'
   })
+  .when('/ranking',{
+    templateUrl: 'partials/ranking.html',
+    controller: 'RankingController'
+  })
   .when('/login',{
     templateUrl: 'partials/login.html',
     controller: 'LoginController'

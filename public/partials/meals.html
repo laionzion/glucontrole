@@ -1,56 +1,159 @@
 <div ng-include="'partials/navbar.html'"></div>
 <div>
-  <div class="container filterForm">
-    <form class="form-horizontal regForm" role="form">
-      <div class="form-group has-feedback">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 nPadL">
-          <input type="text" class="form-control" id="inputSuccess" ng-model="filter.search">
-          <span class="glyphicon glyphicon-search form-control-feedback"></span>
-        </div>
-         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 nPadL">
-          <select class="form-control" ng-model="filter.type">
-            <option></option>
-            <option>Bebidas</option>
-            <option>Cereales y derivados</option>
-            <option>Dulces</option>
-            <option>Fruta grasa y seca</option>
-            <option>Frutas</option>
-            <option>Legumbres</option>
-            <option>Lácteos</option>
-            <option>Otros</option>
-            <option>Tubérculos</option>
-            <option>Verduras</option>
-          </select>
-        </div>
-      </div>
-    </form>
-  </div>
-  <ul class="list-group">
-    <li class="list-group-item foodList" ng-repeat="food in foodList | filter:filter.type | filter:filter.search | orderBy:'+name' ">
-      <div class="row" ng-click="showDetails = ! showDetails">
+  <div class="container container-fluid">
+    <h3>{{user.firstName}} {{user.secondName}}</h3>
+    <h4 class="h4">Comida</h4>
+    <div class="container filterForm">
+      <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
-          <h3 class="recName">{{food.name}}</h3>
+          <button class="btn btn-success addForm" ng-click="showForm = ! showForm">Nueva comida</button>
         </div>
       </div>
-      <section class="nPadL" ng-controller="PanelController" ng-show="showDetails">
-        <div class="container container-fluid">
-            <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-              <h4 class="racion numberInput">Cantidad: <input type="number" class="form-control" ng-model="multFactor" ng-init="multFactor=1" min="1"> {{food.serving}}</h4>
+      <section class="nPadL" ng-show="showForm">
+        <form class="form-horizontal addForm" role="form" ng-submit="addMealData()">
+          <div class="form-group">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 nPadL">
+              <h5>Fecha: <input type="text" class="form-control" id="inputFecha" ng-model="fecha"></h5>
             </div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ingCol">
-                <ul class="list-group">
-                  <kbd class="availIngredient">Hidratos de carbono: {{food.gCarbs * multFactor}} g</kbd>
-                  <kbd class="availIngredient">Índice glucémico: {{food.gIndex}}</kbd>
-                  <kbd class="availIngredient">Carga glucémica: {{(food.gIndex * food.gCarbs * multFactor) / 100}}</kbd>
-                </ul>
-              </div>
-              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ingCol">
-                <button ng-click="count = count + 1">Añadir</button>
-              </div>
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-1 nPadL">
+              <h5>Hora: <input type="text" class="form-control" id="inputHora" ng-model="hora"></h5>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 nPadL">
+              <h5>Tipo: <select class="form-control" ng-model="mealType">
+                <option></option>
+                <option>Desayuno</option>
+                <option>Comida</option>
+                <option>Merienda</option>
+                <option>Cena</option>
+              </select></h5>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 nPadL">
+              <button type="submit" class="btn btn-success addExcercise" ng-click="showForm = ! showForm"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
           </div>
+        </form>
+        <ul class="list-group infoList">
+          <li class="list-group-item ingredient ingCol col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL" ng-repeat="alimento in mealFood">
+            <span class="label label-default">{{alimento.amount}} x {{alimento.name}} (HC: {{alimento.gCarbs}}, IG: {{alimento.gIndex}}, CG: {{alimento.gLoad}})</span>
+            <button type="submit" class="btn btn-danger btn-sm" ng-click="deleteMealFood(alimento)"><span class="glyphicon glyphicon-remove"></span></button>
+          </li>
+        </ul>
+        <!-- <table class="table table-striped table-bordered table-hover">
+          <tr>
+            <th class="anchoJusto">Cantidad</th><th>Alimento</th><th class="anchoJusto">Hidratos de carbono</th><th class="anchoJusto">Índice glucémico</th><th class="anchoJusto">Carga glucémico</th>
+          </tr>
+          <tr ng-repeat="alimento in mealFood">
+            <td>{{alimento.amount}}</td>
+            <td>{{alimento.name}}</td>
+            <td>{{alimento.gCarbs}}</td>
+            <td>{{alimento.gIndex}}</td>
+            <td>{{alimento.gLoad}}</td>
+            <td class="anchoJusto"><button type="submit" class="btn btn-danger btn-sm" ng-click="deleteExerciseData(ejercicio)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
+        </table> -->
+        <div class="container filterForm">
+          <form class="form-horizontal regForm" role="form">
+            <div class="form-group has-feedback">
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 nPadL">
+                <input type="text" class="form-control" id="inputSuccess" ng-model="filter.search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 nPadL">
+                <select class="form-control" ng-model="filter.type">
+                  <option></option>
+                  <option>Bebidas</option>
+                  <option>Cereales y derivados</option>
+                  <option>Dulces</option>
+                  <option>Fruta grasa y seca</option>
+                  <option>Frutas</option>
+                  <option>Legumbres</option>
+                  <option>Lácteos</option>
+                  <option>Otros</option>
+                  <option>Tubérculos</option>
+                  <option>Verduras</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item foodList" ng-repeat="food in foodList | filter:filter.type | filter:filter.search | orderBy:'+name'">
+            <div class="row" ng-click="showDetails = ! showDetails">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
+                <h3 class="recName">{{food.name}}</h3>
+              </div>
+            </div>
+            <section class="nPadL" ng-controller="PanelController" ng-show="showDetails">
+              <form class="form-horizontal addForm" role="form" ng-submit="addMealFood(food, multFactor, servingCarbs)">
+                <div class="container container-fluid">
+                  <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                      <h4 class="racion numberInput">Cantidad: <input type="number" class="form-control" ng-model="multFactor" ng-init="multFactor=1" min="1"></h4>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                      <select class="form-control selectInput" ng-model="servingCarbs" ng-options="serving.gCarbs as serving.name for serving in food.serving" ng-init="servingCarbs = food.serving[0].gCarbs" ></select>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 nPadL">
+                      <button type="submit" class="btn btn-success selectInput"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ingCol">
+                      <ul class="list-group">
+                        <kbd class="carbsInfo">Hidratos de carbono: {{servingCarbs * multFactor}} g</kbd>
+                        <kbd class="carbsInfo">Índice glucémico: {{food.gIndex}}</kbd>
+                        <kbd class="carbsInfo">Carga glucémica: {{(food.gIndex * servingCarbs * multFactor) / 100}}</kbd>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </section>
+          </li>
+        </ul>
       </section>
-    </li>
-  </ul>
+    </div>
+    <ul class="list-group infoList list-group-item" ng-repeat="(fecha, comidas) in user.groupedMealsReverse">
+      <div class="row" ng-click="showDetailsMeals = ! showDetailsMeals">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
+          <h4><strong>{{fecha | date:'dd/MM/yyyy'}}</strong></h4>
+        </div>
+      </div>
+      <section class="nPadL" ng-controller="PanelController" ng-show="showDetailsMeals">
+        <div class="container container-fluid">
+          <div class="row">
+            <li class="list-group-item ingredient ingCol col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL" ng-repeat="comida in comidas | orderBy:'-date'">
+              <span class="label label-primary">{{comida.type}} ({{comida.date | date:'HH:mm'}})</span>
+              <span class="label label-danger">Total CG: {{ getTotal(comida.food) }}</span>
+              <!-- <ul class="list-group infoList list-group-item">
+                <div class="row">
+                  <li class="list-group-item ingredient ingCol col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL" ng-repeat="alimento in comida.food">
+                    <span class="label label-default">{{alimento.amount}} x {{alimento.name}} (HC: {{alimento.gCarbs}}, IG: {{alimento.gIndex}}, CG: {{alimento.gLoad}})</span>
+                    <button type="submit" class="btn btn-danger btn-sm" ng-click="deleteExerciseData(ejercicio)"><span class="glyphicon glyphicon-remove"></span></button>
+                  </li>
+                </div>
+              </ul> -->
+              <table class="table table-striped table-bordered table-hover tabla">
+                <tr>
+                  <th class="anchoJusto">Cantidad</th><th>Alimento</th><th class="anchoJusto">Hidratos de carbono</th><th class="anchoJusto">Índice glucémico</th><th class="anchoJusto">Carga glucémico</th>
+                </tr>
+                <tr ng-repeat="alimento in comida.food">
+                  <td>{{alimento.amount}}</td>
+                  <td>{{alimento.name}}</td>
+                  <td>{{alimento.gCarbs}}</td>
+                  <td>{{alimento.gIndex}}</td>
+                  <td>{{alimento.gLoad}}</td>
+                  <!-- <td class="anchoJusto"><button type="submit" class="btn btn-danger btn-sm" ng-click="deleteExerciseData(ejercicio)"><span class="glyphicon glyphicon-remove"></span></button></td> -->
+                </tr>
+              </table>
+            </li>
+          </div>
+        </div>
+      </section>
+    </ul>
+
+
+
+
+
+
+
 </div>

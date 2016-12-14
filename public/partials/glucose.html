@@ -1,49 +1,54 @@
 <div ng-include="'partials/navbar.html'"></div>
 <div>
   <div class="container container-fluid">
-    <h4>Niveles de glucosa</h4>
+    <h3>{{user.firstName}} {{user.secondName}}</h3>
+    <h4 class="h4">Niveles de glucosa</h4>
     <div class="container filterForm">
-      <div class="row" ng-click="showForm = ! showForm">
+      <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
-          <button class="btn btn-success addForm">Nueva medida</button>
+          <button class="btn btn-success addForm" ng-click="showForm = ! showForm">Nueva medida</button>
         </div>
       </div>
       <section class="nPadL" ng-show="showForm">
         <form class="form-horizontal addForm" role="form" ng-submit="addGlucoseData()">
-          <div class="form-group has-feedback">
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 nPadL">
-              <input type="text" class="form-control" id="inputSuccesss" ng-model="glucoseValue">
+          <div class="form-group">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 nPadL">
+              <h5>Fecha: <input type="text" class="form-control" id="inputFecha" ng-model="fecha"></h5>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 nPadL">
-              <select class="form-control" ng-model="glucoseType">
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 nPadL">
+              <h5>Hora: <input type="text" class="form-control" id="inputHora" ng-model="hora"></h5>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 nPadL">
+              <h5>Medida: <input type="text" class="form-control" id="inputSuccesss" ng-model="glucoseValue">
+              </h5>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 nPadL">
+              <h5>Tipo: <select class="form-control" ng-model="glucoseType">
                 <option></option>
                 <option>Ayunas</option>
                 <option>Post ejercicio</option>
                 <option>Postprandial</option>
                 <option>Antes de dormir</option>
-              </select>
+              </select></h5>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 nPadL">
-              <button type="submit" class="btn btn-success" ng-click="showForm = ! showForm"><span class="glyphicon glyphicon-plus"></span></button>
+              <button type="submit" class="btn btn-success addExcercise" ng-click="showForm = ! showForm"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
           </div>
         </form>
       </section>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item ingredient ingCol">
-        <kbd>Máximo: {{user.glucoseValues[0]}}</kbd>
-        <kbd>Mínimo: {{user.glucoseValues[1]}}</kbd>
-        <kbd>Media: {{user.glucoseValues[2]}}</kbd>
-      </li>
-    </ul>
-    <ul class="list-group">
-      <li class="list-group-item ingredient ingCol col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL" ng-repeat="medida in user.glucoseLevels | orderBy:'-date'">
-        <kbd>Fecha: {{medida.date | date:'dd/MM/yyyy HH:mm:ss'}}</kbd>
-        <kbd>Tipo: {{medida.mType}}</kbd>
-        <kbd>Medida: {{medida.gLevel}}</kbd>
-        <button type="submit" class="btn btn-danger btn-sm" ng-click="deleteGlucoseData(medida)"><span class="glyphicon glyphicon-remove"></span></button>
-      </li>
-    </ul>
+    <table class="table table-striped table-bordered table-hover">
+      <tr>
+        <th>Fecha</th><th>Hora</th><th>Tipo</th><th>Medida</th>
+      </tr>
+      <tr ng-repeat="medida in user.glucoseLevels | orderBy:'-date'">
+        <td>{{medida.date | date:'dd/MM/yyyy'}}</td>
+        <td>{{medida.date | date:'HH:mm'}}</td>
+        <td>{{medida.mType}}</td>
+        <td>{{medida.gLevel}}</td>
+        <td class="anchoJusto"><button type="submit" class="btn btn-danger btn-sm" ng-click="deleteGlucoseData(medida)"><span class="glyphicon glyphicon-remove"></span></button></td>
+      </tr>
+    </table>
   </div>
 </div>
