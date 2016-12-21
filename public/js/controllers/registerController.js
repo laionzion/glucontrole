@@ -1,50 +1,54 @@
 //Controlador de menú de registro de usuario
-glucontrole.controller('RegisterController', ['$scope', '$http', '$location',
-	function($scope, $http, $location){ 
-	//Función para limpiar los checks de alergias
-	$scope.limpiar=function(){
-		$scope.glutenal=false;
-		$scope.eggal=false;
-		$scope.milkal=false;
-		$scope.soyal=false;
-		$scope.nutal=false;
-		$scope.peanutsal=false;
-		$scope.fishal=false;
-		$scope.shellfishal=false;
-		$scope.celeryal=false;
-		$scope.sesameal=false;
-		$scope.mustardal=false;
-	}
-	//Función de usuario
+glucontrole.controller('RegisterController', ['$scope', '$http', '$location', function($scope, $http, $location){
+
+	$http.get('/ranking').success(function(data){
+		$scope.ranking = data;
+	});
+
+	//Función que registra al nuevo usuario
 	$scope.register = function(){
 		//Propiedades del usuario que se va a crear
 		var registerData = {
 			'username': $scope.username,
 			'password': $scope.password,
-			'rfm': $scope.rfm,
 			'firstName': $scope.firstname,
 			'secondName': $scope.secondname,
-			'cGluten': $scope.glutenal,
-			'cEgg': $scope.eggal,
-			'cMilk': $scope.milkal,
-			'cSoy': $scope.soyal,
-			'cNut': $scope.nutal,
-			'cPeanuts': $scope.peanutsal,
-			'cFish': $scope.fishal,
-			'cShellFish': $scope.shellfishal,
-			'cCelery': $scope.celeryal,
-			'cSesame': $scope.sesameal,
-			'cMustard': $scope.mustardal
+			'birthDate': $scope.birthdate,
+			'weight': $scope.weight,
+			'height': $scope.height,
 	    };
+
+	    registerData.glucoseLevels = [];
+	    registerData.exercise = [];
+	    registerData.meals = [];
+	    registerData.ranking = [];
+	    registerData.medals = [];
+
 	    //Se crea el usuario
 		$http.post('/users', registerData)
 			.success(function(userData){
+				//Propiedades del usuario que se va a crear
+				var rankingData = {
+					'userid': userData.id,
+					'username': userData.username,
+					'name': userData.firstName+" "+userData.secondName,
+					'points': 0,
+			    };
+
+			    $scope.ranking[0].rankings.push(rankingData);
+
+				$http.post('/ranking/'+$scope.ranking[0].id, $scope.ranking[0])
+					//Si se produce un error se avisa al usuario
+					.error(function(){
+						alert('No se ha podido actualizar la tabla de ranking con el nuevo usuario');	
+					});
+
 				//Se le lleva al menú de login
 				$location.path('/login');
 			})
 			//Si se produce un error se avisa al usuario
 			.error(function(){
-				alert('No se ha podido registrar ese usuario');	
+				alert('No se ha podido registrar el nuevo usuario');	
 			});
 	};
 }]);

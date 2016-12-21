@@ -1,5 +1,5 @@
 //Controlador de recetas
-glucontrole.controller('MealsController',['$scope', '$http', function($scope, $http){
+glucontrole.controller('MealsController',['$scope', '$http', '$location', function($scope, $http, $location){
   $scope.foodList = [];
   $scope.mealFood = [];
   var sendMeal = [];
@@ -31,7 +31,7 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
       "food": $scope.mealFood
     };
 
-    //Se añade la última medida
+    //Se añade la última comida
     if($scope.user.meals == ""){
       sendMeal.push(mealData);
     }
@@ -40,9 +40,7 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
       sendMeal.push(mealData);
     }
 
-    console.log(sendMeal);
-
-    //Se crea la nueva medida
+    //Se crea la nueva comida
     $http.post('/users/'+$scope.user.id, {meals: sendMeal})
       .success(function(correct){
         
@@ -55,7 +53,7 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
         $scope.limpiar();
         $scope.mealFood = [];
 
-        //Se vuelve a cargar la lista de medidas de glucosa
+        //Se vuelve a cargar la lista de comidas
         $location.path('/meals');
       })
       //Mensaje de error
@@ -71,15 +69,18 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
       "type": food.type,
       "name": food.name,
       //"serving": servingName;
-      "amount": parseInt(multFactor),
+      /*"amount": parseInt(multFactor),
       "gCarbs": parseInt(serving)*parseInt(multFactor),
       "gIndex": parseInt(food.gIndex),
-      "gLoad": parseInt(serving)*parseInt(multFactor)*parseInt(food.gIndex)/100
+      "gLoad": parseInt(serving)*parseInt(multFactor)*parseInt(food.gIndex)/100*/
+
+      "amount": multFactor.toFixed(1),
+      "gCarbs": serving.toFixed(2)*multFactor.toFixed(1),
+      "gIndex": parseInt(food.gIndex),
+      "gLoad": serving.toFixed(2)*multFactor.toFixed(1)*parseInt(food.gIndex)/100
     };
 
     $scope.mealFood.push(mealInfo);
-
-    console.log($scope.mealFood);
   };
 
   //Función para limpiar los campos del formulario
@@ -97,7 +98,7 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
     $scope.inputSuccess = "";
   };
 
-  //Función para cambiar la fecha actual por la del ejercicio introducido
+  //Función para cambiar la fecha actual por la de la comida introducida
   function changeDate(dia, hora){
     var changedTime = new Date();
 
@@ -116,16 +117,23 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
     return changedTime;
   }
 
-  //Función para eliminar una medida de glucosa
-  $scope.deleteGlucoseData = function(medida){
-    //Se busca el índice de la medida a eliminar y se elimina
-    var index = $scope.user.glucoseLevels.indexOf(medida);
-    if (index > -1) {
-      $scope.user.glucoseLevels.splice(index, 1);
+  //Función para eliminar una comida del histórico
+  $scope.deleteMealData = function(meal){
+    //Se busca el índice de la comida a eliminar y se elimina
+    var index = -1;
+
+    for (var i = 0; i < $scope.user.meals.length; i++) {
+      if(angular.equals($scope.user.meals[i], meal)) {
+            index = i;
+        }
     }
 
-    //Se crea la nueva medida
-    $http.post('/users/'+$scope.user.id, {glucoseLevels: $scope.user.glucoseLevels})
+    if (index > -1) {
+      $scope.user.meals.splice(index, 1);
+    }
+
+    //Se actualiza el histórico de comidas
+    $http.post('/users/'+$scope.user.id, {meals: $scope.user.meals})
       .success(function(correct){
         
         //Se vuelve a descargar la información del usuario
@@ -133,16 +141,61 @@ glucontrole.controller('MealsController',['$scope', '$http', function($scope, $h
           $scope.user=data;
         });
 
-        //Se vuelve a cargar la lista de medidas de glucosa
-        $location.path('/glucose');
+        //Se vuelve a cargar la lista de comidas
+        $location.path('/meals');
       })
       //Mensaje de error
       .error(function(err){
-        alert(err.message || 'No se ha podido eliminar la medida'); 
+        alert(err.message || 'No se ha podido eliminar la comida'); 
     });
   };
 
-  //Función para añadir una nueva comida
+  //Función para eliminar un alimento de una comida del histórico
+  $scope.deleteFoodData = function(meal, serving){
+    //Se busca el índice del alimento a eliminar y se elimina
+    var indexMeal = -1;
+    var indexServing = -1;
+
+    for (var i = 0; i < $scope.user.meals.length; i++) {
+      if(angular.equals($scope.user.meals[i], meal)) {
+            indexMeal = i;
+        }
+    }
+
+    if (indexMeal > -1) {
+      //Si se encuentra la comida, se busca el alimento a eliminar
+      for (var i = 0; i < $scope.user.meals[indexMeal].food.length; i++) {
+        if(angular.equals($scope.user.meals[indexMeal].food[i], serving)) {
+              indexServing = i;
+          }
+      }
+      $scope.user.meals[indexMeal].food.splice(indexServing, 1);
+
+      //Si se eliminan todos los alimentos de una comida, se elimina también la comida
+      if($scope.user.meals[indexMeal].food.length == 0){
+        $scope.user.meals.splice(indexMeal, 1);        
+      }
+    }
+
+    //Se actualiza el histórico de comidas
+    $http.post('/users/'+$scope.user.id, {meals: $scope.user.meals})
+      .success(function(correct){
+        
+        //Se vuelve a descargar la información del usuario
+        $http.get('/users/me').success(function(data){
+          $scope.user=data;
+        });
+
+        //Se vuelve a cargar la lista de comidas
+        $location.path('/meals');
+      })
+      //Mensaje de error
+      .error(function(err){
+        alert(err.message || 'No se ha podido eliminar la comida'); 
+    });
+  };
+
+  //Función para eliminar un alimento de una nueva comida
   $scope.deleteMealFood = function(alimento){
     //Se busca el índice de la medida a eliminar y se elimina
     var index = $scope.mealFood.indexOf(alimento);

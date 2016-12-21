@@ -102,7 +102,7 @@ glucontrole.controller('GlucoseController',['$scope', '$http', '$location', func
     }
 
     //Se añade la última medida
-    if($scope.user.glucoseLevels == ""){
+    if($scope.user.glucoseLevels == null){
       sendGlucose.push(glucoseData);
     }
     else{
@@ -268,7 +268,7 @@ glucontrole.controller('GlucoseController',['$scope', '$http', '$location', func
     });
   };
 
-  //Función para añadir una medida de glucosa nueva
+  //Función para quitar puntos del ranking y actualizar los datos en la tabla
   $scope.deleteRankingData = function(){
 
     //Se definen las notificaciones
@@ -287,7 +287,7 @@ glucontrole.controller('GlucoseController',['$scope', '$http', '$location', func
 
     $http.post('/users/'+$scope.user.id, {ranking: $scope.user.ranking})
     .success(function(correct){
-      if($scope.user.ranking[attrIndex].gCount >= 3){
+      if($scope.user.ranking[attrIndex].gCount >= 2){
         $.notify({
           icon: notifyIcon1,
           message: notifyMessage1
@@ -306,7 +306,7 @@ glucontrole.controller('GlucoseController',['$scope', '$http', '$location', func
     });
   };
 
-  //Función para añadir una medida de glucosa nueva
+  //Función para actualizar el ranking de un usuario en la tabla de rankings
   function updateRanking(){
     var rankingUpdate = {
       "userid": $scope.user.id,

@@ -72,6 +72,14 @@
 			"required": false,
 			"id": "ranking",
 			"order": 8
+		},
+		"medals": {
+			"name": "medals",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "medals",
+			"order": 9
 		}
 	}
 }

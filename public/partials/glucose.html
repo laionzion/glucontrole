@@ -18,10 +18,6 @@
             <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 nPadL">
               <h5>Hora: <input type="text" class="form-control" id="inputHora" ng-model="hora"></h5>
             </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 nPadL">
-              <h5>Medida: <input type="text" class="form-control" id="inputSuccesss" ng-model="glucoseValue">
-              </h5>
-            </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 nPadL">
               <h5>Tipo: <select class="form-control" ng-model="glucoseType">
                 <option></option>
@@ -31,6 +27,10 @@
                 <option>Antes de dormir</option>
               </select></h5>
             </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 nPadL">
+              <h5>Medida: <input type="text" class="form-control" id="inputSuccesss" ng-model="glucoseValue">
+              </h5>
+            </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 nPadL">
               <button type="submit" class="btn btn-success addExcercise" ng-click="showForm = ! showForm"><span class="glyphicon glyphicon-plus"></span></button>
             </div>
@@ -38,7 +38,7 @@
         </form>
       </section>
     </div>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" ng-show="user.glucoseLevels != ''">
       <tr>
         <th>Fecha</th><th>Hora</th><th>Tipo</th><th>Medida</th>
       </tr>

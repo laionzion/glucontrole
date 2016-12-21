@@ -4,6 +4,8 @@ glucontrole.controller('DashboardController',['$scope', '$http', function($scope
   $scope.glucoseChartData = [];
   $scope.exerciseChartData = [];
   $scope.mealsChartData = [];
+  /*$scope.exportMealsTotal = [];
+  $scope.exportMeals = [];*/
 
   $http.get('/users/me').success(function(data){
     $scope.user = data;
@@ -16,16 +18,45 @@ glucontrole.controller('DashboardController',['$scope', '$http', function($scope
     var sortedGlucose = $scope.user.glucoseLevels.sort(compareDate);
     var sortedExercise = $scope.user.exercise.sort(compareExercise);
     var sortedMeals = $scope.user.meals.sort(compareDate);
+    var history = new Date();
+    history = history.setDate(history.getDate() - 14);
 
-    for (var i = 0; i < sortedGlucose.length; i++) {
-      $scope.glucoseChartData.push([new Date(sortedGlucose[i].date), sortedGlucose[i].gLevel]);
+    for(var i = 0; i < sortedGlucose.length; i++) {
+      if(sortedGlucose[i].date >= history){
+        $scope.glucoseChartData.push([new Date(sortedGlucose[i].date), sortedGlucose[i].gLevel]);
+      }
     }
-    for (var i = 0; i < sortedExercise.length; i++) {
-      $scope.exerciseChartData.push([new Date(sortedExercise[i].startTime), sortedExercise[i].calories]);
+    for(var i = 0; i < sortedExercise.length; i++) {
+      if(sortedExercise[i].startTime >= history){
+        $scope.exerciseChartData.push([new Date(sortedExercise[i].startTime), sortedExercise[i].calories]);
+      }
     }
-    for (var i = 0; i < sortedMeals.length; i++) {
-      $scope.mealsChartData.push([new Date(sortedMeals[i].date), parseFloat($scope.getTotal(sortedMeals[i].food))]);
+    for(var i = 0; i < sortedMeals.length; i++) {
+      if(sortedMeals[i].date >= history){
+        $scope.mealsChartData.push([new Date(sortedMeals[i].date), parseFloat($scope.getTotal(sortedMeals[i].food))]);
+      }
+
+      //Propiedades de la comida para exportar en CSV
+      /*var mealTotalData = {
+        "date": sortedMeals[i].date,
+        "type": sortedMeals[i].type,
+        "totalGL": $scope.getTotal(sortedMeals[i].food)
+      };
+      $scope.exportMealsTotal.push(mealTotalData);
+
+      sortedMeals[i].food.forEach(function(value){
+        var mealData = {
+          "date": sortedMeals[i].date,
+          "type": sortedMeals[i].type,
+          "food": value.name,
+          "gLoad": value.gLoad
+        };
+        $scope.exportMeals.push(mealData);
+      });*/
     }
+
+    /*console.log($scope.exportMealsTotal);
+    console.log($scope.exportMeals);*/
 
     google.charts.load('current', {'packages':['corechart', 'line']});
     google.charts.setOnLoadCallback(drawChart);
@@ -49,22 +80,28 @@ glucontrole.controller('DashboardController',['$scope', '$http', function($scope
       var glucoseOptions = {
         title: 'Histórico de glucosa en sangre',
         curveType: 'function',
-        legend: { position: 'right' },
-        colors: ['red']
+        legend: { position: 'bottom' },
+        colors: ['red'],
+        chartArea: {width: '85%'},
+        vAxis: {viewWindow: {min:0}}
       };
 
       var exerciseOptions = {
         title: 'Histórico de ejercicio',
         curveType: 'function',
-        legend: { position: 'right' },
-        colors: ['orange']
+        legend: { position: 'bottom' },
+        colors: ['orange'],
+        chartArea: {width: '85%'},
+        vAxis: {viewWindow: {min:0}}
       };
 
       var mealsOptions = {
         title: 'Histórico de alimentación',
         curveType: 'function',
-        legend: { position: 'right' },
-        colors: ['green']
+        legend: { position: 'bottom' },
+        colors: ['green'],
+        chartArea: {width: '85%'},
+        vAxis: {viewWindow: {min:0}}
       };
 
       var glucoseChart = new google.visualization.LineChart(document.getElementById('glucoseChart'));
@@ -75,21 +112,34 @@ glucontrole.controller('DashboardController',['$scope', '$http', function($scope
 
       var mealsChart = new google.visualization.LineChart(document.getElementById('mealsChart'));
       mealsChart.draw(mealsData, mealsOptions);
+      
+      //Función que reajusta el tamaño de las gráficas al tamaño de la ventana (responsive)
+      function resizeHandler(){
+        glucoseChart.draw(glucoseData, glucoseOptions);
+        exerciseChart.draw(exerciseData, exerciseOptions);
+        mealsChart.draw(mealsData, mealsOptions);
+      }
+      if(window.addEventListener){
+          window.addEventListener('resize', resizeHandler, false);
+      }
+      else if(window.attachEvent){
+          window.attachEvent('onresize', resizeHandler);
+      }
     }
   };
 
-  function compareDate(a,b) {
-    if (a.date < b.date)
+  function compareDate(a,b){
+    if(a.date < b.date)
       return -1;
-    if (a.date > b.date)
+    if(a.date > b.date)
       return 1;
     return 0;
   }
 
-  function compareExercise(a,b) {
-    if (a.startTime < b.startTime)
+  function compareExercise(a,b){
+    if(a.startTime < b.startTime)
       return -1;
-    if (a.startTime > b.startTime)
+    if(a.startTime > b.startTime)
       return 1;
     return 0;
   }

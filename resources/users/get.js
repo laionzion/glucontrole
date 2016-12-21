@@ -8,15 +8,22 @@ if (me.username != this.username){
 //Propiedades añadidas
 else{
   //Valores máximo, mínimo y media
-  this.glucoseValues=getGlucoseValues(this.glucoseLevels);
-  //Entrenamientos agrupados por fecha
-  this.groupedExercise=groupExerciseByDate(this.exercise);
-  //Entrenamientos ordenados por fecha inversa
-  this.groupedExerciseReverse=reverseOrder(this.groupedExercise);
-  //Alimentación agrupada por fecha
-  this.groupedMeals=groupMealsByDate(this.meals);
-  //Alimentación ordenada por fecha inversa
-  this.groupedMealsReverse=reverseOrder(this.groupedMeals);
+  /*if(this.glucoseLevels.length){
+    this.glucoseValues=getGlucoseValues(this.glucoseLevels);
+  }
+  else{
+   this.glucoseValues=[0, 0, 0]; 
+  }
+  //Entrenamientos agrupados por fecha y por fecha inversa
+  if(this.exercise.length){
+    this.groupedExercise=groupExerciseByDate(this.exercise);
+    this.groupedExerciseReverse=reverseOrder(this.groupedExercise);
+  }
+  //Alimentación agrupada por fecha y por fecha inversa
+  if(this.meals.length){
+    this.groupedMeals=groupMealsByDate(this.meals);
+    this.groupedMealsReverse=reverseOrder(this.groupedMeals);
+  }*/
 }
 
 //Funciones

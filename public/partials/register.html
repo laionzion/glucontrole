@@ -1,60 +1,15 @@
-<div class="container">	
-	<form class="form-horizontal" role="form" ng-submit="register()">
-		<div class="form-group regForm">
-			<label for="username">Usuario</label>
-		    <input type="text" class="form-control" ng-model="username">
-			<label for="password">Contraseña:</label>
-		    <input type="password" class="form-control" ng-model="password">
-		    <label for="firstname">Nombre</label>
-		    <input type="text" class="form-control" ng-model="firstname">
-		    <label for="secondname">Apellidos</label>
-		    <input type="text" class="form-control" ng-model="secondname">
-		    <label for="rfm">RFM</label>
-		    <input type="text" class="form-control" ng-model="rfm">
-		    <label for="allergies">Tengo alergias alimentarias</label>
-		    <input type="checkbox" ng-model="allergies" ng-click="limpiar()">
-		    <div class="row" ng-show="allergies">
-	    	    <div>
-	    			<div class="checkbox-inline">
-	    	      		<label><input type="checkbox" ng-model="glutenal">Gluten</label>
-	    	    	</div>
-	    	    	<div class="checkbox-inline">
-	    	      		<label><input type="checkbox" ng-model="eggal">Huevo</label>
-	    	    	</div>
-	    	    	<div class="checkbox-inline">
-	    	      		<label><input type="checkbox" ng-model="milkal">Lácteos</label>
-	    	    	</div>
-	    	    	<div class="checkbox-inline">
-	    	      		<label><input type="checkbox" ng-model="soyal">Soja</label>
-	    	    	</div>
-	    	    	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="peanutsal">Cacahuetes</label>
-    	        	</div>
-    	        	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="nutal">Frutos con cáscara</label>
-    	        	</div>
-    	        	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="fishal">Pescado</label>
-    	        	</div>
-    	        	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="shellfishal">Marisco</label>
-    	        	</div>
-    	        	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="celeryal">Apio</label>
-    	        	</div>
-    	        	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="sesameal">Sésamo</label>
-    	        	</div>
-    	        	<div class="checkbox-inline">
-    	          		<label><input type="checkbox" ng-model="mustardal">Mostaza</label>
-    	        	</div>
-	    	    </div>	    	
-		    </div>
-		    <div class="row">
-			    <button type="submit" class="btn btn-info">Registro</button>
-			    <a href="#/login" class="btn btn-success" role="button">Acceder</a>
-			</div>
-		</div>
+<div class="container">
+	<form class="form-signin" role="form" ng-submit="register()">
+		<h2 class="form-signin-heading text-center">Nuevo usuario</h2>
+		<input type="text" ng-model="username" class="form-control" placeholder="Usuario" required autofocus>
+		<input type="password" ng-model="password" class="form-control" placeholder="Contraseña" required>
+		<input type="text" ng-model="firstname" class="form-control" placeholder="Nombre" required>
+		<input type="text" ng-model="secondname" class="form-control" placeholder="Apellidos" required>
+		<input type="text" ng-model="birthdate" class="form-control" placeholder="Fecha de nacimiento" required>
+		<input type="text" ng-model="weight" class="form-control" placeholder="Peso (Kg)" required>
+		<input type="text" ng-model="height" class="form-control" placeholder="Altura (cm)" required>
+		<button type="submit" class="btn btn-lg btn-primary btn-block btn-info">Registro</button>
+		<a href="#/login" class="btn btn-lg btn-primary btn-block btn-success" role="button">Acceder</a>
 	</form>
 </div>
 
