@@ -8,7 +8,7 @@ if (me.username != this.username){
 //Propiedades añadidas
 else{
   //Valores máximo, mínimo y media
-  /*if(this.glucoseLevels.length){
+  if(this.glucoseLevels.length){
     this.glucoseValues=getGlucoseValues(this.glucoseLevels);
   }
   else{
@@ -23,7 +23,7 @@ else{
   if(this.meals.length){
     this.groupedMeals=groupMealsByDate(this.meals);
     this.groupedMealsReverse=reverseOrder(this.groupedMeals);
-  }*/
+  }
 }
 
 //Funciones
