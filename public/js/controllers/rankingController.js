@@ -8,6 +8,6 @@ glucontrole.controller('RankingController',['$scope', '$http', '$location', func
   });
 
   $http.get('/ranking').success(function(data){
-    $scope.ranking = data[0].rankings;
+    $scope.ranking = data[0];
   });
 }]);

@@ -8,6 +8,14 @@
 			"required": false,
 			"id": "rankings",
 			"order": 0
+		},
+		"medals": {
+			"name": "medals",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "medals",
+			"order": 1
 		}
 	}
 }

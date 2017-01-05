@@ -4,9 +4,9 @@
     <h3>{{user.firstName}} {{user.secondName}}</h3>
     <h4 class="h4">Medallas</h4>
     <div class="container container-fluid">
-      <div class="row photoCol" ng-repeat="medalla in user.medals">
+      <div class="row photoCol" ng-repeat="medalla in ranking.medals">
         <figure>
-          <img ng-src="images/icons/{{medalla.badge}}.png" class="img-responsive imgMedal"></img>
+          <img ng-src="images/icons/{{user.medals[$index] ? medalla.badge+'On' : medalla.badge+'Off'}}.png" class="img-responsive imgMedal"></img>
           <figcaption>{{medalla.name}}</figcaption>
         </figure>
       </div>
@@ -16,7 +16,7 @@
       <tr>
         <th>Posición</th><th>Usuario</th><th>Nombre</th><th>Puntos</th>
       </tr>
-      <tr ng-repeat="player in ranking | orderBy:'-points'">
+      <tr ng-repeat="player in ranking.rankings | orderBy:'-points'">
         <td>{{$index + 1}}</td>
         <td>{{player.username}}</td>
         <td>{{player.name}}</td>

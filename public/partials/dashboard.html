@@ -3,18 +3,51 @@
   <div class="container container-fluid">
     <h3>{{user.firstName}} {{user.secondName}}</h3>
     <h4 class="h4">Tablero</h4>
-    <div class="container container-fluid">
-      <ul class="list-group infoList">
-        <li class="list-group-item ingredient ingCol col-lg-12 col-md-12 col-sm-12 col-xs-12 nPadL">
-          <span>Glucosa: </span>
-          <span class="label label-danger">Máximo: {{user.glucoseValues[0]}}</span>
-          <span class="label label-success">Mínimo: {{user.glucoseValues[1]}}</span>
-          <span class="label label-info">Media: {{user.glucoseValues[2]}}</span>
-        </li>
-      </ul>
+    <div class="fila">
+      <div class="tablero" id="chart_div1" style="width: 180px; height: 180px;"></div>
+      <div class="tablero" id="chart_div2" style="width: 180px; height: 180px;"></div>
+      <div class="tablero" id="chart_div3" style="width: 180px; height: 180px;"></div>
+      <div class="tablero" id="chart_div4" style="width: 180px; height: 180px;"></div> 
     </div>
-    <div id="glucoseChart" class="chart"></div>
-    <div id="exerciseChart" class="chart"></div>
-    <div id="mealsChart" class="chart"></div>
+    <div class="fila">
+      <div class="tableroTercio">
+        <ul class="list-group infoList">
+          <li class="list-group-item ingredient textoCentrado">
+            <span>Glucosa:</span>
+          </li>
+          <li class="list-group-item ingredient textoCentrado">
+            <span class="label label-danger">Máximo: {{user.glucoseValues[0]}}</span>
+            <span class="label label-info">Media: {{user.glucoseValues[2]}}</span>
+            <span class="label label-success">Mínimo: {{user.glucoseValues[1]}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="tableroTercio">
+        <ul class="list-group infoList">
+          <li class="list-group-item ingredient textoCentrado">
+            <span>Ejercicio (Calorías):</span>
+          </li>
+          <li class="list-group-item ingredient textoCentrado">
+            <span class="label label-danger">Máximo: {{user.exerciseValues[0]}}</span>
+            <span class="label label-info">Media: {{user.exerciseValues[2]}}</span>
+            <span class="label label-success">Mínimo: {{user.exerciseValues[1]}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="tableroTercio">
+        <ul class="list-group infoList">
+          <li class="list-group-item ingredient textoCentrado">
+            <span>Dieta (Carga glucémica):</span>
+          </li>
+          <li class="list-group-item ingredient textoCentrado">
+            <span class="label label-danger">Máximo: {{user.mealValues[0]}}</span>
+            <span class="label label-info">Media: {{user.mealValues[2]}}</span>
+            <span class="label label-success">Mínimo: {{user.mealValues[1]}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="glucoseVSexerciseChart" class="chart"></div>
+    <div id="glucoseVSmealsChart" class="chart"></div>
   </div>
 </div>

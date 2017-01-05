@@ -68,7 +68,7 @@
 	padding-top: 15px;
 }
 .imgMedal{
-	margin-right: 15px;
+	margin: auto;
 	width: 50px;
 }
 .ingCol{
@@ -81,6 +81,30 @@
 .panel{
 	border:1px solid #5393C8;
 	margin:1px;
+}
+
+.fila {
+ 	width: 100%;
+ 	text-align: center;
+}
+
+.textoCentrado{
+	text-align: center;
+}
+
+.tablero{
+	max-width: 25%;
+	display: inline-block;
+}
+
+.filaTercio{
+ 	width: 100%;
+ 	text-align: left;
+}
+
+.tableroTercio{
+	max-width: 33%;
+	display: inline-block;
 }
 
 .container-fluid{
@@ -209,7 +233,8 @@ figure {
 }
 figcaption {
   text-align: center;
-  padding: 0.5em;
+  padding-top: 0.5em;
+  font-style: bolder;
 }
 .offerUrl{
 	color: white !important;

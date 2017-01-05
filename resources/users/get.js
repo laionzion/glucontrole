@@ -9,30 +9,52 @@ if (me.username != this.username){
 else{
   //Valores máximo, mínimo y media
   if(this.glucoseLevels.length){
-    this.glucoseValues=getGlucoseValues(this.glucoseLevels);
+    this.glucoseValues=getMinMaxAvg(this.glucoseLevels, "glucosa");
   }
   else{
-   this.glucoseValues=[0, 0, 0]; 
+   this.glucoseValues=[0, 0, 0];
   }
   //Entrenamientos agrupados por fecha y por fecha inversa
   if(this.exercise.length){
     this.groupedExercise=groupExerciseByDate(this.exercise);
     this.groupedExerciseReverse=reverseOrder(this.groupedExercise);
+    this.exerciseValues=getMinMaxAvg(this.exercise, "ejercicio");
+  }
+  else{
+   this.exerciseValues=[0, 0, 0];
   }
   //Alimentación agrupada por fecha y por fecha inversa
   if(this.meals.length){
     this.groupedMeals=groupMealsByDate(this.meals);
     this.groupedMealsReverse=reverseOrder(this.groupedMeals);
+    this.mealValues=getMinMaxAvg(this.meals, "comida");
+  }
+  else{
+   this.mealValues=[0, 0, 0];
   }
 }
 
 //Funciones
 
 //Funcion que recibe el histórico de glucosa y devuelve un array con el valor mínimo, máximo y medio
-function getGlucoseValues(gLevels){
+function getMinMaxAvg(array, tipo){
   var values = [];
-  gLevels.forEach(function(value){
-    values.push(value.gLevel);
+  var totalCals = 0;
+  array.forEach(function(value){
+    if(tipo == "glucosa"){
+      values.push(value.gLevel);
+    }
+    else if(tipo == "ejercicio"){
+      values.push(value.calories);
+    }
+    else if(tipo == "comida"){
+      var totalGL = 0;
+      //Para cada comida se suma la carga glucemica de cada alimento
+      value.food.forEach(function(f){
+        totalGL += f.gLoad;
+      });
+      values.push(Math.round(totalGL/value.food.length));
+    }
   });
 
   //Se calcula la suma y la media de los valores de glucosa
@@ -56,7 +78,7 @@ function groupExerciseByDate(exerciseData) {
   return groups;
 };
 
-//Función que agrupa los entrenamientos por día
+//Función que agrupa las comidas por día
 function groupMealsByDate(mealData) {
   var groups = {};
 

@@ -19,10 +19,10 @@ glucontrole.controller('RegisterController', ['$scope', '$http', '$location', fu
 	    };
 
 	    registerData.glucoseLevels = [];
-	    registerData.exercise = [];
 	    registerData.meals = [];
+	    registerData.exercise = [];
 	    registerData.ranking = [];
-	    registerData.medals = [];
+	    registerData.medals = new Array(8).fill(0);
 
 	    //Se crea el usuario
 		$http.post('/users', registerData)
